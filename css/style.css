@@ -8,14 +8,6 @@ color: white;
     font-size: 27px;
 }
 
-.count {
- color: white;
- height: 25px;
- width: 125px;
- background-color: grey;
- font-size: 15px;
- margin-left: 26%;
-}
 
 .container {
     position: relative;
@@ -137,65 +129,18 @@ top: 20%;
     background-color: grey;
     border-radius: 5px;
     border: 5px solid black;
-}
-
-.bets {
-    color: white;
-    position: absolute;
-    
-    bottom: 2%;
-}
-
-.bets > button {
-    border-radius: 50%;
-    border: 3px solid black;
-}
-
-.money {
-    color: white;
-    border: 2px solid black;
-    border-radius: 5px;
-    background-color: grey;
-    width: 100px;
-    position: absolute;
-    left: 26%;
-    bottom: 10%;
-
-}
-
-.buyin-btns {
-    color: white;
-
-}
-.buyin-btns > button {
-    color: white;
-    background-color: grey;
-    border: 2px solid white;
-    border-radius: 5px;
-}
-
-.ProfitLoss {
-    color: black;
-    font-size: 18px;;
-    background-color: grey;
-    border: 2px solid white;
-    border-radius: 4px;
-    height: 20px;
-    width: 200px;
-    position: absolute;
-    right: 42%;
-    bottom: 18%;
-
+    height: 35px;
+    width: 60px;
 }
 
 #reset-button {
     background-color: grey;
-    border: 2px solid white;
+    border: 3px solid black;
     border-radius: 45%;
     color: white;
     position: absolute;
-    bottom: 10%;
-    right: 63%;
-    height: 35px;
+    bottom: 6%;
+    right: 38%;
+    height: 45px;
     width: 50px;
 }
