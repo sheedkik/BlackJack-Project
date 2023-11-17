@@ -3,13 +3,17 @@ font-size: 40px;
 
 }
 
+.winner {
+    font-size: 27px;
+}
+
 .count {
  color: white;
  height: 25px;
  width: 125px;
  background-color: grey;
  font-size: 15px;
- margin-left: 36%;
+ margin-left: 26%;
 }
 
 .container {
@@ -150,7 +154,7 @@ top: 20%;
     width: 100px;
     position: absolute;
     left: 26%;
-    bottom: 17%;
+    bottom: 10%;
 
 }
 
@@ -177,3 +181,13 @@ top: 20%;
 
 }
 
+#reset-button {
+    background-color: grey;
+    border-radius: 45%;
+    color: white;
+    position: absolute;
+    bottom: 10%;
+    right: 63%;
+    height: 35px;
+    width: 50px;
+}

@@ -72,62 +72,62 @@ let playerHand, dealerHand, winner, playerBlackjack, dealerBlackjack, dealerHidd
 
 let shuffledDeck = shuffleDeck();
 
+let playerTotal
+let dealerTotal 
+let playerCards = [];
+let dealerCards = [];
 
 //------------------------------Cached Elements-----------------------------------------------//
-const dealerCard1Ele = document.querySelector(".dealer-card1");
-const dealerCard2Ele = document.querySelector(".dealer-card2");
 const dealerCardsEle = document.querySelector(".dealer-cards");
-const playerCard1Ele = document.querySelector(".player-card1");
-const playerCard2Ele = document.querySelector(".player-card2");
 const playerCardsEle = document.querySelector(".player-cards");
-const headerEle = document.querySelector(".header");
-const hitEle = document.getElementById("hit-btn");
-const standEle = document.getElementById("stand-btn");
-const splitEle = document.getElementById("split-btn");
-const doubleEle = document.getElementById("double-btn");
+const winnerEle = document.querySelector(".winner");
+const hitBtn = document.getElementById("hit-btn");
+const standBtn = document.getElementById("stand-btn");
+const splitBtn = document.getElementById("split-btn");
+const doubleBtn = document.getElementById("double-btn");
+const resetBtn = document.getElementById("reset-button");
 
 
 
 
 //------------------------------Event Listeners-----------------------------------------------//
-hitEle.addEventListener("click", function(event){
+hitBtn.addEventListener("click", function(event){
     event.preventDefault();
-    const newCardEle = document.createElement("div");
-    const newCard = shuffledDeck.shift();
-    
-    newCardEle.innerHTML = `<img src="${imageLinks[newCard.face]}" alt="${newCard.face}">`;
-    playerTotal += newCard.value;
-    playerCardsEle.appendChild(newCardEle);
-    // render();
-    
-    if (playerTotal > 21) {
-        winner = "-1";
-    } else {
-        turn = "1";
+
+    if (turn === "1" && playerTotal < 22) {
+        dealCards(playerCardsEle);
+        
+        if (playerTotal > 21) {
+            winner = "-1";
+        } else {
+            turn = "1";
+        }
+        render();
     }
+    // console.log("working")
 })
 
-standEle.addEventListener("click", function(event){
+
+standBtn.addEventListener("click", function(event){
+    turn = "-1"
     event.preventDefault();
-    const newDealerCardEle = document.createElement("div");
-    const newDealerCard = shuffledDeck.shift();
-    
-    newDealerCardEle.innerHTML = `<img src="${imageLinks[newDealerCard.face]}" alt="${newDealerCard.face}">`;
-    
+
         while (dealerTotal < 17) {
-            dealerTotal += newDealerCard.value;
-            dealerCardsEle.appendChild(newDealerCardEle);
-            
-            // render();
+            dealCards(dealerCardsEle);
         }
         if (dealerTotal > 21) {
             winner = "1";
+        } else {
+            calculateWinner();
         }
+        render();
 })
 
+resetBtn.addEventListener("click", function() {
+    reset();
+    init();
+})
 
-let playerTotal
-let  dealerTotal 
 
 //------------------------------Functions-----------------------------------------------------//
 //Creates an unshuffled deck. Sets the value of each card to their number value, unless its an Ace, jack, queen, or king.
@@ -198,15 +198,15 @@ function calculateTotal (hand) {
 }
 
 function checkBlackjack () {
-    if (playerCardsEle[0].value === "10" || playerCardsEle[0].value === "J" || playerCardsEle[0].value === "Q" || playerCardsEle[0].value === "K"  && playerCardsEle[1].value === "A") {
+    if (playerCards[0].value === "10" || playerCards[0].value === "J" || playerCards[0].value === "Q" || playerCards[0].value === "K"  && playerCards[1].value === "A") {
         playerBlackjack = true;
-    } else if (playerCardsEle[0].value === "A"  && playerCardsEle[1].value === "10" || playerCardsEle[1].value === "J" || playerCardsEle[1].value === "Q" || playerCardsEle[1].value === "K") {
+    } else if (playerCards[0].value === "A"  && playerCards[1].value === "10" || playerCards[1].value === "J" || playerCards[1].value === "Q" || playerCards[1].value === "K") {
         playerBlackjack = true;
     }
 
-    if (dealerCardsEle[0].value === "10" || dealerCardsEle[0].value === "J" || dealerCardsEle[0].value === "Q" || dealerCardsEle[0].value === "K" && dealerCardsEle[1].value ==="A") {
+    if (dealerCards[0].value === "10" || dealerCards[0].value === "J" || dealerCards[0].value === "Q" || dealerCards[0].value === "K" && dealerCards[1].value ==="A") {
         dealerBlackjack = true;
-    } else if (dealerCardsEle[0] === "A" && dealerCardsEle[1].value === "10" || dealerCardsEle[1].value === "J" || dealerCardsEle[1].value === "Q" || dealerCardsEle[1].value === "K" ) {
+    } else if (dealerCards[0] === "A" && dealerCards[1].value === "10" || dealerCards[1].value === "J" || dealerCards[1].value === "Q" || dealerCards[1].value === "K" ) {
         dealerBlackjack = true;
     }
 
@@ -217,6 +217,7 @@ function checkBlackjack () {
             winner = 1;
         } else {
             winner = null;
+            console.log("no blackjacks")
         }
     }
 }
@@ -227,17 +228,17 @@ renderWinner();
 
 
 function renderWinner () {
-    const winnerDiv = document.createElement("div");
 
     if ( winner === "1") {
-        winnerDiv.innerText = "You win!" 
+        winnerEle.innerText = "You win!" 
     } else if  (winner === "-1") {
-        winnerDiv.innerText = "Dealer Wins..." 
+        winnerEle.innerText = "Dealer Wins..." 
     } else if ( winner === "T") {
-        winnerDiv.innerText = "Its a push." 
+        winnerEle.innerText = "Its a push." 
+    } else if ( winner === null) {
+        winnerEle.innerText = "Game is in progress..."
     }
 
-    headerEle.appendChild(winnerDiv);
 
 }
 
@@ -255,14 +256,17 @@ function dealCards(handEle, isFaceDown = false) {
     handEle.appendChild(cardEle);
 
     if (handEle === playerCardsEle) {
-        playerTotal += card.value;
+        playerCards.push(card);
+        playerTotal = calculateTotal(playerCards);
     } else if (handEle === dealerCardsEle) {
-        dealerTotal += card.value;
+        dealerCards.push(card);
+        dealerTotal = calculateTotal(dealerCards);
     }
 }
 
 
 function init() {
+    winner = null;
     createDeck();
     shuffleDeck();
     dealCards(playerCardsEle);
@@ -271,6 +275,21 @@ function init() {
     dealCards(dealerCardsEle);
     render();
     turn = "1";
+}
+
+function reset() {
+    createDeck();
+    shuffleDeck();
+    dealerTotal = 0;
+    playerTotal = 0;
+    turn = "1";
+    winner = null;
+    dealerCards = [];
+    playerCards = [];
+    dealerCardsEle.innerHTML = "";
+    playerCardsEle.innerHTML = "";
+    render();
+
 }
 
 
