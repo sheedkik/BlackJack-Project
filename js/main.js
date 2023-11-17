@@ -1,4 +1,3 @@
-//------------------------------Constants-----------------------------------------------------//
 let turn = {
     "1": "Player",
     "-1": "Dealer",
@@ -66,7 +65,6 @@ const imageLinks = {
 
 
 
-//------------------------------State Variables-----------------------------------------------//
 let playerHand, dealerHand, winner, playerBlackjack, dealerBlackjack, dealerHiddenCard
 
 
@@ -77,7 +75,6 @@ let dealerTotal
 let playerCards = [];
 let dealerCards = [];
 
-//------------------------------Cached Elements-----------------------------------------------//
 const dealerCardsEle = document.querySelector(".dealer-cards");
 const playerCardsEle = document.querySelector(".player-cards");
 const winnerEle = document.querySelector(".winner");
@@ -89,8 +86,6 @@ const resetBtn = document.getElementById("reset-button");
 
 
 
-
-//------------------------------Event Listeners-----------------------------------------------//
 hitBtn.addEventListener("click", function(event){
     event.preventDefault();
 
@@ -104,7 +99,6 @@ hitBtn.addEventListener("click", function(event){
         }
         render();
     }
-    // console.log("working")
 })
 
 
@@ -129,8 +123,6 @@ resetBtn.addEventListener("click", function() {
 })
 
 
-//------------------------------Functions-----------------------------------------------------//
-//Creates an unshuffled deck. Sets the value of each card to their number value, unless its an Ace, jack, queen, or king.
 function createDeck () {
     const deck = [];
     suits.forEach(function(suit){
@@ -152,7 +144,6 @@ function createDeck () {
     return deck;
 }
 
-//shuffles the unshuffled deck to put cards into random order until it runs out of cards in the unshuffled deck
 function shuffleDeck () {
     const tempDeck = [...unshuffledDeck];
     const newShuffledDeck = [];
@@ -189,7 +180,6 @@ function calculateTotal (hand) {
         }
     })
     
-//if there is an ace in the hand and the total goes over 21, count the ace as 11 and decrease ace count by 1
     while (aces > 0 && total > 21) {
         total -= 10;
         aces -= 1;
