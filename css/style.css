@@ -38,11 +38,16 @@ position: absolute;
 top: 20%;
 
 }
-.dealer-card1, .dealer-card2 {
+.dealer-cards > div {
     display: inline-block;
     border: 1px solid red;
     padding: 5px 5px;
-    background-color: rgb(0, 0, 99);
+    background-color: white;;
+    height: 100px;
+    width: 75px;
+}
+
+.dealer-cards > div > img {
     height: 100px;
     width: 75px;
 }
@@ -100,13 +105,18 @@ top: 20%;
     bottom: 15%;
 }
 
-.player-card1, .player-card2 {
+.player-cards > div {
     display: inline-block;
     border: 1px solid red;
     padding: 5px 5px;
-    background-color: rgb(0, 0, 99);
     height: 100px;
     width: 75px;
+}
+
+.player-cards > div > img {
+    height: 100px;
+    width: 75px;
+    background-color: white;
 }
 
 .choices {
