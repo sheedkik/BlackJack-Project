@@ -240,7 +240,7 @@ function dealCards(handEle, isFaceDown = false) {
     if (isFaceDown) {
         cardEle.innerHTML = `${card.back}`;
     } else {
-        cardEle.innerHTML = `<img src="${imageLinks[card.face]}" alt="${card.face}">`;
+        cardEle.innerHTML = `<img src=".${imageLinks[card.face]}" alt="${card.face}">`;
     }
 
     handEle.appendChild(cardEle);
