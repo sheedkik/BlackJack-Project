@@ -103,7 +103,7 @@ hitBtn.addEventListener("click", function(event){
 
 
 standBtn.addEventListener("click", function(event){
-    turn = "-1"
+    turn = "-1";
     event.preventDefault();
 
         while (dealerTotal < 17) {
